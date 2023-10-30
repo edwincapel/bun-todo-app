@@ -41,6 +41,21 @@ const app = new Elysia()
   // Return the modified data
   return { data }
 })
+.decorate('editTodoById', (id: number, updatedData: { title?: string; description?: string; isComplete?: boolean }) => {
+  // Find the index of the object with the specified ID
+  const todoIndex = data.findIndex(item => item.id === id);
+
+  if (todoIndex === -1) {
+    throw new Error("Could not find todo item")
+  }
+  // Perform the edit based on the provided properties in updatedData
+  data[todoIndex] = {
+    ...data[todoIndex],
+    ...updatedData
+  }
+
+  return { data }
+})
 .get("/all", ()=> {
   return { data }
 })
@@ -58,6 +73,15 @@ const app = new Elysia()
   body: t.Object({
     title: t.String(),
     description: t.String(),
+  })
+})
+.put('/todo/:id', ({body, params: {id}, editTodoById}) => {
+  return editTodoById(Number(id), {...body})
+}, {
+  body: t.Object({
+    title: t.Optional(t.String()),
+    description: t.Optional(t.String()),
+    isComplete: t.Optional(t.Boolean()),
   })
 })
 .listen(3000)
