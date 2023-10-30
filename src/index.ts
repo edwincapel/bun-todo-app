@@ -20,8 +20,17 @@ const data = [{
 }]
 
 const app = new Elysia()
+.state('version',1)
+.decorate('getPostById', (id: number)=> data.find(item => item.id === id))
 .get("/all", ()=> {
   return { data }
+})
+.get('/todo/:id', ({params: {id}, getPostById})=>{
+  const response = getPostById(Number(id))
+  if (!response) {
+    throw new Error("Could not find todo item")
+  }
+  return response
 })
 .listen(3000)
 
