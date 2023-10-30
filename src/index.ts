@@ -1,6 +1,6 @@
 import { Elysia, t } from "elysia"
 
-const data = [{
+let data = [{
   id: 1,
   title: 'First Item',
   description: "Description for the first item",
@@ -56,6 +56,11 @@ const app = new Elysia()
 
   return { data }
 })
+.decorate('deleteTodoById', (id: number)=> {
+  data = data.filter(item => item.id !== id);
+  return data
+
+})
 .get("/all", ()=> {
   return { data }
 })
@@ -83,6 +88,13 @@ const app = new Elysia()
     description: t.Optional(t.String()),
     isComplete: t.Optional(t.Boolean()),
   })
+})
+.delete('/todo/:id', ({params: {id}, deleteTodoById, getTodoById})=>{
+  const response = getTodoById(Number(id))
+  if (!response) {
+    throw new Error("Could not find todo item")
+  }
+  return deleteTodoById(Number(id))
 })
 .listen(3000)
 
