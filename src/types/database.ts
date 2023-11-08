@@ -1,4 +1,4 @@
-import Database from "bun:sqlite"
+import Database from 'bun:sqlite'
 
 export type DbAction = {
   queryMethod: QueryMethod
