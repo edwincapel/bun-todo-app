@@ -1,0 +1,10 @@
+{
+  "semi": false,
+  "tabWidth": 2,
+  "singleQuote": true,
+  "jsxSingleQuote": false,
+  "trailingComma": "es5",
+  "printWidth": 100,
+  "importOrder": ["<THIRD_PARTY_MODULES>", "types/.*$"],
+  "importOrderSeparation": false
+}
