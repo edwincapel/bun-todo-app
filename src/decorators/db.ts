@@ -1,6 +1,6 @@
 import Elysia from 'elysia'
-import { DbAction } from 'types/database'
 import Database from 'bun:sqlite'
+import { DbAction } from 'types/database'
 
 export const databasePlugin = new Elysia()
   .decorate('database', () => {
