@@ -1,6 +1,6 @@
 import Database from 'bun:sqlite'
 
-export type DbAction = {
+export interface DbAction {
   queryMethod: QueryMethod
   query: string
   params?: QueryParams[]
